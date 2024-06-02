@@ -8,11 +8,17 @@ namespace GoShop.Domain.Entities;
 
 public class MobilePhoneEntity
 {
-    public int Id { get; set; }
-    public string Brand { get; set; }
-    public string Model { get; set; }
+    public Guid Id { get; set; }
+    public Guid UserId { get; set; }
+    public Guid MobilePhoneHardwareId { get; set; }
+    public Guid MobilePhoneSoftwareId { get; set; }
+    public string Brand { get; set; } = default!;
+    public string Model { get; set; } = default!;
     public int Year { get; set; }
-    public string Condition { get; set; } // E.g., New, Like New, Used, etc.
-    public string Description { get; set; } 
+    public string Condition { get; set; } = default!;
+    public string Description { get; set; } = default!;
     public decimal Price { get; set; } = 0;
+    public MobilePhoneHardwareEntity MobilePhoneHardwareEntity { get; set; } = default!;
+    public MobilePhoneSoftwareEntity MobilePhoneSoftwareEntity { get; set; } = default!;
+    public UserEntity User { get; set; } = default!;
 }

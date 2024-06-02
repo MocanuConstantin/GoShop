@@ -8,10 +8,13 @@ namespace GoShop.Domain.Entities;
 
 public class MobilePhoneSoftwareEntity
 {
-    public int Id { get; set; }
-    public string OperatingSystem { get; set; } // e.g., Android, iOS
-    public string OSVersion { get; set; } // e.g., Android 11, iOS 14.4
-    public string FirmwareVersion { get; set; } // Firmware version details
-    public bool IsRootedOrJailbroken { get; set; } // Indicates if the device is rooted/jailbroken
-    public DateTime LastSoftwareUpdate { get; set; } // Date of the last software update
+    public Guid Id { get; set; }
+    public Guid MobilePhoneId { get; set; }
+    public string OperatingSystem { get; set; } 
+    public string OSVersion { get; set; } 
+    public string FirmwareVersion { get; set; } 
+    public bool IsRootedOrJailbroken { get; set; } 
+    public DateTime LastSoftwareUpdate { get; set; } 
+
+    public MobilePhoneEntity mobilePhoneEntity { get; set; }
 }
