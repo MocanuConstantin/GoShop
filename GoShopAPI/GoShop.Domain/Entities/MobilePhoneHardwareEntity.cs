@@ -12,7 +12,7 @@ public class MobilePhoneHardwareEntity
     public Guid MobilePhoneId { get; set; }
     public string Processor { get; set; } = default!;
     public string RAM { get; set; } = default!;
-    public string Storage { get; set; } = default!;
+    public string? Storage { get; set; } = default!;
     public string Display { get; set; } = default!;
     public string Battery { get; set; } = default!;
     public string Camera { get; set; } = default!;
