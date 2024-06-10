@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace GoShop.Data.Repositories;
 
-public class UserRepository
+public class UserRepository 
 {
 }

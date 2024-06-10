@@ -18,7 +18,7 @@ public class MobilePhoneEntity
     public string Condition { get; set; } = default!;
     public string Description { get; set; } = default!;
     public decimal Price { get; set; } = 0;
-    public MobilePhoneHardwareEntity MobilePhoneHardwareEntity { get; set; } = default!;
-    public MobilePhoneSoftwareEntity MobilePhoneSoftwareEntity { get; set; } = default!;
+    public MobilePhoneHardwareEntity MobilePhoneHardware { get; set; } = default!;
+    public MobilePhoneSoftwareEntity MobilePhoneSoftware { get; set; } = default!;
     public UserEntity User { get; set; } = default!;
 }

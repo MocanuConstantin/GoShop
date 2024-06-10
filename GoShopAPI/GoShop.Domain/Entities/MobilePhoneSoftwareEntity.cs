@@ -16,5 +16,5 @@ public class MobilePhoneSoftwareEntity
     public bool IsRootedOrJailbroken { get; set; }
     public DateTime LastSoftwareUpdate { get; set; } 
 
-    public MobilePhoneEntity mobilePhoneEntity { get; set; } = default!;
+    public MobilePhoneEntity MobilePhone { get; set; } = default!;
 }

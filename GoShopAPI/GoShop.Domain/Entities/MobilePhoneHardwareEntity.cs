@@ -19,5 +19,5 @@ public class MobilePhoneHardwareEntity
     public string Dimensions { get; set; } = default!;
     public string Weight { get; set; } = default!;
 
-    public MobilePhoneEntity mobilePhoneEntity { get; set; } = default!;
+    public MobilePhoneEntity MobilePhone {  get; set; } = default!;
 }
