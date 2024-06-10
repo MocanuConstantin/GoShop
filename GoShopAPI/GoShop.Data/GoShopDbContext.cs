@@ -18,7 +18,7 @@ public class GoShopDbContext : DbContext
     public GoShopDbContext(DbContextOptions<GoShopDbContext> options) 
         : base(options)
     { }
-
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
