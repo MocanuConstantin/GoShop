@@ -9,7 +9,7 @@ namespace GoShop.Domain.Entities;
 public class MobilePhoneSoftwareEntity
 {
     public Guid Id { get; set; }
-    public Guid MobilePhoneId { get; set; }
+    public Guid MobilePhoneID { get; set; }
     public string OperatingSystem { get; set; } = default!;
     public string OSVersion { get; set; } = default!;
     public string FirmwareVersion { get; set; } = default!;

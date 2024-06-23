@@ -27,12 +27,12 @@ public class MobilePhoneEntityConfiguration : IEntityTypeConfiguration<MobilePho
         builder.Property(t => t.Description).IsRequired().HasMaxLength(255);
 
         builder.HasOne(t => t.MobilePhoneHardware)
-            .WithOne(x => x.MobilePhone)
-            .HasForeignKey<MobilePhoneHardwareEntity>(x => x.MobilePhoneId);
+            .WithOne(h => h.MobilePhone)
+            .HasForeignKey<MobilePhoneHardwareEntity>(h => h.MobilePhoneId);
 
         builder.HasOne(t => t.MobilePhoneSoftware)
-           .WithOne(x => x.MobilePhone)
-           .HasForeignKey<MobilePhoneSoftwareEntity>(x => x.MobilePhoneId);
+           .WithOne(s => s.MobilePhone)
+           .HasForeignKey<MobilePhoneSoftwareEntity>(s => s.MobilePhoneID);
 
         builder.HasOne(t => t.User)
          .WithMany(x => x.MobilePhones)

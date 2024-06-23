@@ -16,7 +16,7 @@ public class MobilePhoneSoftwareEntityConfiguration : IEntityTypeConfiguration<M
         builder.ToTable("MobilePhoneSoftware");
         builder.HasKey(t => t.Id);
 
-        builder.Property(t => t.MobilePhoneId).IsRequired();
+        builder.Property(t => t.MobilePhoneID).IsRequired();
         builder.Property(t => t.OperatingSystem).IsRequired().HasMaxLength(255);
         builder.Property(t => t.OSVersion).IsRequired().HasMaxLength(255);
         builder.Property(t => t.FirmwareVersion).IsRequired().HasMaxLength(255);
@@ -26,6 +26,6 @@ public class MobilePhoneSoftwareEntityConfiguration : IEntityTypeConfiguration<M
 
         builder.HasOne(t => t.MobilePhone)
            .WithOne(x => x.MobilePhoneSoftware)
-           .HasForeignKey<MobilePhoneHardwareEntity>(x => x.MobilePhoneId);
+           .HasForeignKey<MobilePhoneSoftwareEntity>(x => x.MobilePhoneID);
     }
 }
