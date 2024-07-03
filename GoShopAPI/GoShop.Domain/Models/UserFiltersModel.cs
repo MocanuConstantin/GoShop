@@ -11,5 +11,5 @@ public class UserFiltersModel
     public int? Count { get; set; }
     public int? Offset { get; set; }
     public string? SortBy { get; set; }
-    public string UserName { get; set; } 
+    public string? UserName { get; set; } 
 }
