@@ -45,4 +45,17 @@ public class MobilePhoneService : IMobilePhoneService
             return 0;
         }
     }
+
+    public async Task<MobilePhoneEntity> CreateAsync(MobilePhoneEntity entity, CancellationToken cancellationToken)
+    {
+        try
+        {
+            return await _repository.CreateAsync(entity, cancellationToken);
+        }
+        catch(Exception ex) 
+        {
+           _logger.LogError(ex, "Failed to create entity");
+            throw;
+        }
+    }
 }

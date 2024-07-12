@@ -44,6 +44,13 @@ public class MobilePhoneRepository : IMobilePhoneRepository
         return await query.CountAsync(cancellationToken);
     }
 
+    public async Task<MobilePhoneEntity> CreateAsync(MobilePhoneEntity mobilePhoneEntity, CancellationToken cancellationToken)
+    {
+        _context.MobilePhoneEntities.Add(mobilePhoneEntity); 
+        await _context.SaveChangesAsync(cancellationToken);
+        return mobilePhoneEntity;
+    }
+
     private IQueryable<MobilePhoneEntity> GetQueryByFilters(MobilePhoneFiltersModel filters)
     {
         var query = _context.MobilePhoneEntities.AsQueryable();

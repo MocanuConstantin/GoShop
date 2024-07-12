@@ -32,5 +32,12 @@ namespace GoShop.API.Controllers
             var count = await _mobilePhoneService.GetCountByFiltersAsync(model, cancellationToken);
             return Ok(count);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<MobilePhoneEntity>> CreateAsync([FromQuery] MobilePhoneEntity entity, CancellationToken cancellationToken)
+        {
+            var result = await _mobilePhoneService.CreateAsync(entity, cancellationToken);
+            return Ok(result);
+        }
     }
 }
