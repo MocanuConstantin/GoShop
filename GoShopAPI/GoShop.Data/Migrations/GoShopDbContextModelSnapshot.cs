@@ -17,12 +17,38 @@ namespace GoShop.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.6")
+                .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("GoShop.Domain.Entities.MobilePhoneEntity", b =>
+            modelBuilder.Entity("GoShop.Domain.Entities.UserEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("MobilePhoneEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -43,34 +69,28 @@ namespace GoShop.Data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<Guid>("MobilePhoneHardwareId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MobilePhoneSoftwareId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Model")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<decimal>("Price")
+                    b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserEntityId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Year")
+                    b.Property<int?>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserEntityId");
 
                     b.ToTable("MobilePhones", (string)null);
                 });
 
-            modelBuilder.Entity("GoShop.Domain.Entities.MobilePhoneHardwareEntity", b =>
+            modelBuilder.Entity("MobilePhoneHardwareEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -116,7 +136,8 @@ namespace GoShop.Data.Migrations
 
                     b.Property<string>("Weight")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
@@ -126,7 +147,7 @@ namespace GoShop.Data.Migrations
                     b.ToTable("MobilePhoneHardware", (string)null);
                 });
 
-            modelBuilder.Entity("GoShop.Domain.Entities.MobilePhoneSoftwareEntity", b =>
+            modelBuilder.Entity("MobilePhoneSoftwareEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -140,10 +161,11 @@ namespace GoShop.Data.Migrations
                     b.Property<bool>("IsRootedOrJailbroken")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("LastSoftwareUpdate")
+                    b.Property<DateTime?>("LastSoftwareUpdate")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("MobilePhoneID")
+                    b.Property<Guid>("MobilePhoneId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("OSVersion")
@@ -158,86 +180,53 @@ namespace GoShop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MobilePhoneID")
+                    b.HasIndex("MobilePhoneId")
                         .IsUnique();
 
                     b.ToTable("MobilePhoneSoftware", (string)null);
                 });
 
+            modelBuilder.Entity("MobilePhoneEntity", b =>
+                {
+                    b.HasOne("GoShop.Domain.Entities.UserEntity", null)
+                        .WithMany("MobilePhones")
+                        .HasForeignKey("UserEntityId");
+                });
+
+            modelBuilder.Entity("MobilePhoneHardwareEntity", b =>
+                {
+                    b.HasOne("MobilePhoneEntity", "MobilePhone")
+                        .WithOne("MobilePhoneHardware")
+                        .HasForeignKey("MobilePhoneHardwareEntity", "MobilePhoneId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MobilePhone");
+                });
+
+            modelBuilder.Entity("MobilePhoneSoftwareEntity", b =>
+                {
+                    b.HasOne("MobilePhoneEntity", "MobilePhone")
+                        .WithOne("MobilePhoneSoftware")
+                        .HasForeignKey("MobilePhoneSoftwareEntity", "MobilePhoneId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MobilePhone");
+                });
+
             modelBuilder.Entity("GoShop.Domain.Entities.UserEntity", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<Guid>("MobilePhoneId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users", (string)null);
+                    b.Navigation("MobilePhones");
                 });
 
-            modelBuilder.Entity("GoShop.Domain.Entities.MobilePhoneEntity", b =>
-                {
-                    b.HasOne("GoShop.Domain.Entities.UserEntity", "User")
-                        .WithMany("MobilePhones")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("GoShop.Domain.Entities.MobilePhoneHardwareEntity", b =>
-                {
-                    b.HasOne("GoShop.Domain.Entities.MobilePhoneEntity", "MobilePhone")
-                        .WithOne("MobilePhoneHardware")
-                        .HasForeignKey("GoShop.Domain.Entities.MobilePhoneHardwareEntity", "MobilePhoneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MobilePhone");
-                });
-
-            modelBuilder.Entity("GoShop.Domain.Entities.MobilePhoneSoftwareEntity", b =>
-                {
-                    b.HasOne("GoShop.Domain.Entities.MobilePhoneEntity", "MobilePhone")
-                        .WithOne("MobilePhoneSoftware")
-                        .HasForeignKey("GoShop.Domain.Entities.MobilePhoneSoftwareEntity", "MobilePhoneID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MobilePhone");
-                });
-
-            modelBuilder.Entity("GoShop.Domain.Entities.MobilePhoneEntity", b =>
+            modelBuilder.Entity("MobilePhoneEntity", b =>
                 {
                     b.Navigation("MobilePhoneHardware")
                         .IsRequired();
 
                     b.Navigation("MobilePhoneSoftware")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("GoShop.Domain.Entities.UserEntity", b =>
-                {
-                    b.Navigation("MobilePhones");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,4 @@
-﻿using GoShop.Domain.Entities;
-using GoShop.Domain.Models;
+﻿using GoShop.Domain.Models;
 
 
 namespace GoShop.Domain.Interfaces;
@@ -10,5 +9,5 @@ public interface IMobilePhoneRepository
 
     Task<int> GetCountByFiltersAsync(MobilePhoneFiltersModel model, CancellationToken cancellationToken);
 
-    Task<MobilePhoneEntity> CreateAsync(MobilePhoneEntity mobilePhoneEntity, CancellationToken cancellationToken);
+    Task<MobilePhoneEntity> CreateMobilePhoneAsync(MobilePhoneEntity mobilePhoneDto, CancellationToken cancellationToken);
 }

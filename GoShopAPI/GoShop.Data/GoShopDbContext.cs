@@ -15,12 +15,12 @@ public class GoShopDbContext : DbContext
     public DbSet<MobilePhoneHardwareEntity> MobilePhoneHardwareEntities { get; set; }
     public DbSet<MobilePhoneSoftwareEntity> MobilePhoneSoftwareEntities { get; set; }
 
-    public GoShopDbContext(DbContextOptions<GoShopDbContext> options) 
+    public GoShopDbContext(DbContextOptions<GoShopDbContext> options)
         : base(options)
     { }
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-      modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
     }
 }

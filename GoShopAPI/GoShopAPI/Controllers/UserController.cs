@@ -1,4 +1,5 @@
-﻿using GoShop.Domain.Interfaces;
+﻿using GoShop.Domain.Entities;
+using GoShop.Domain.Interfaces;
 using GoShop.Domain.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,14 @@ namespace GoShop.API.Controllers
         {
             var count = await _userService.GetCountByFiltersAsync(model, cancellationToken);
             return Ok(count);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<UserEntity>> CreateUser([FromQuery] UserEntity entity, CancellationToken cancellationToken)
+        {
+            var result = await _userService.CreateUserAsync(entity, cancellationToken);
+
+            return Ok(result);
         }
     }
 }

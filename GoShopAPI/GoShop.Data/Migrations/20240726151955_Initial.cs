@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GoShop.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstMigration : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,7 +16,6 @@ namespace GoShop.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MobilePhoneId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
@@ -31,25 +30,22 @@ namespace GoShop.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MobilePhoneHardwareId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MobilePhoneSoftwareId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Brand = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Model = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Year = table.Column<int>(type: "int", nullable: false),
+                    Year = table.Column<int>(type: "int", nullable: true),
                     Condition = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    UserEntityId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MobilePhones", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MobilePhones_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_MobilePhones_Users_UserEntityId",
+                        column: x => x.UserEntityId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -57,7 +53,6 @@ namespace GoShop.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MobilePhoneId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Processor = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     RAM = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Storage = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
@@ -65,7 +60,8 @@ namespace GoShop.Data.Migrations
                     Battery = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Camera = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Dimensions = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Weight = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Weight = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    MobilePhoneId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,19 +79,19 @@ namespace GoShop.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MobilePhoneID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OperatingSystem = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     OSVersion = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     FirmwareVersion = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     IsRootedOrJailbroken = table.Column<bool>(type: "bit", nullable: false),
-                    LastSoftwareUpdate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    LastSoftwareUpdate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    MobilePhoneId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MobilePhoneSoftware", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MobilePhoneSoftware_MobilePhones_MobilePhoneID",
-                        column: x => x.MobilePhoneID,
+                        name: "FK_MobilePhoneSoftware_MobilePhones_MobilePhoneId",
+                        column: x => x.MobilePhoneId,
                         principalTable: "MobilePhones",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -108,14 +104,14 @@ namespace GoShop.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_MobilePhones_UserId",
+                name: "IX_MobilePhones_UserEntityId",
                 table: "MobilePhones",
-                column: "UserId");
+                column: "UserEntityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MobilePhoneSoftware_MobilePhoneID",
+                name: "IX_MobilePhoneSoftware_MobilePhoneId",
                 table: "MobilePhoneSoftware",
-                column: "MobilePhoneID",
+                column: "MobilePhoneId",
                 unique: true);
         }
 

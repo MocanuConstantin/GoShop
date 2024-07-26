@@ -15,9 +15,10 @@ public class MobilePhoneService : IMobilePhoneService
 {
     private readonly IMobilePhoneRepository _repository;
     private readonly ILogger<MobilePhoneService> _logger;
-    public MobilePhoneService(IMobilePhoneRepository repository)
+    public MobilePhoneService(IMobilePhoneRepository repository, ILogger<MobilePhoneService> logger)
     {
         _repository = repository;
+        _logger = logger;
     }
 
     public async Task<List<MobilePhoneEntity>> GetAllAsync(MobilePhoneFiltersModel model, CancellationToken cancellationToken = default)
@@ -50,7 +51,7 @@ public class MobilePhoneService : IMobilePhoneService
     {
         try
         {
-            return await _repository.CreateAsync(entity, cancellationToken);
+            return await _repository.CreateMobilePhoneAsync(entity, cancellationToken);
         }
         catch(Exception ex) 
         {

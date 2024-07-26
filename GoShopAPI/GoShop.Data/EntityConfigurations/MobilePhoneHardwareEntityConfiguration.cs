@@ -16,7 +16,6 @@ public class MobilePhoneHardwareEntityConfiguration : IEntityTypeConfiguration<M
         builder.ToTable("MobilePhoneHardware");
         builder.HasKey(t => t.Id);
 
-        builder.Property(t => t.MobilePhoneId).IsRequired();
         builder.Property(t => t.Processor).IsRequired().HasMaxLength(255);
         builder.Property(t => t.RAM).IsRequired().HasMaxLength(255);
         builder.Property(t => t.Storage).IsRequired().HasMaxLength(255);
@@ -24,7 +23,7 @@ public class MobilePhoneHardwareEntityConfiguration : IEntityTypeConfiguration<M
         builder.Property(t => t.Battery).IsRequired().HasMaxLength(255);
         builder.Property(t => t.Camera).IsRequired().HasMaxLength(255);
         builder.Property(t => t.Dimensions).IsRequired().HasMaxLength(255);
-        builder.Property(t => t.Dimensions).IsRequired().HasMaxLength(255);
+        builder.Property(t => t.Weight).IsRequired().HasMaxLength(255);
 
         builder.HasOne(t => t.MobilePhone)
            .WithOne(x => x.MobilePhoneHardware)

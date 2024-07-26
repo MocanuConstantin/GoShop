@@ -1,7 +1,5 @@
-﻿using GoShop.Domain.Entities;
-using GoShop.Domain.Interfaces;
+﻿using GoShop.Domain.Interfaces;
 using GoShop.Domain.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoShop.API.Controllers
@@ -33,9 +31,14 @@ namespace GoShop.API.Controllers
             return Ok(count);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<MobilePhoneEntity>> CreateAsync([FromQuery] MobilePhoneEntity entity, CancellationToken cancellationToken)
+        [HttpPost("create")]
+        public async Task<ActionResult<MobilePhoneEntity>> CreateAsync(MobilePhoneEntity entity, CancellationToken cancellationToken)
         {
+            if (entity == null)
+            {
+                return BadRequest(new { message = "The entity field is required." });
+            }
+
             var result = await _mobilePhoneService.CreateAsync(entity, cancellationToken);
             return Ok(result);
         }

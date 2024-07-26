@@ -16,11 +16,6 @@ public class MobilePhoneEntityConfiguration : IEntityTypeConfiguration<MobilePho
         builder.ToTable("MobilePhones");
         builder.HasKey(t => t.Id);
 
-        builder.Property(t => t.UserId).IsRequired();
-        builder.Property(t => t.MobilePhoneHardwareId).IsRequired();
-        builder.Property(t => t.MobilePhoneSoftwareId).IsRequired();
-        builder.Property(t => t.Year).IsRequired();
-        builder.Property(t => t.Price).IsRequired();
         builder.Property(t => t.Brand).IsRequired().HasMaxLength(255);
         builder.Property(t => t.Model).IsRequired().HasMaxLength(255);
         builder.Property(t => t.Condition).IsRequired().HasMaxLength(255);
@@ -28,14 +23,13 @@ public class MobilePhoneEntityConfiguration : IEntityTypeConfiguration<MobilePho
 
         builder.HasOne(t => t.MobilePhoneHardware)
             .WithOne(h => h.MobilePhone)
-            .HasForeignKey<MobilePhoneHardwareEntity>(h => h.MobilePhoneId);
+            .HasForeignKey<MobilePhoneHardwareEntity>(h => h.MobilePhoneId)
+            .IsRequired();
 
         builder.HasOne(t => t.MobilePhoneSoftware)
-           .WithOne(s => s.MobilePhone)
-           .HasForeignKey<MobilePhoneSoftwareEntity>(s => s.MobilePhoneID);
-
-        builder.HasOne(t => t.User)
-         .WithMany(x => x.MobilePhones)
-         .HasForeignKey(x => x.UserId);
+            .WithOne(s => s.MobilePhone)
+            .HasForeignKey<MobilePhoneSoftwareEntity>(s => s.MobilePhoneId)
+            .IsRequired();
     }
 }
+

@@ -8,4 +8,6 @@ public interface IUserRepository
     Task<List<UserEntity>> GetAllAsync(UserFiltersModel model, CancellationToken cancellationToken);
 
     Task<int> GetCountByFiltersAsync(UserFiltersModel model, CancellationToken cancellationToken);
+
+    Task<UserEntity> CreateAsync(UserEntity mobilePhoneDto, CancellationToken cancellationToken);
 }

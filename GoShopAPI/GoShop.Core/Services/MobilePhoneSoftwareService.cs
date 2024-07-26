@@ -14,9 +14,10 @@ public class MobilePhoneSoftwareService : IMobilePhoneSoftwareService
 {
     private readonly IMobilePhoneSoftwareRepository _repository;
     private readonly ILogger<MobilePhoneSoftwareService> _logger;
-    public MobilePhoneSoftwareService(IMobilePhoneSoftwareRepository repository)
+    public MobilePhoneSoftwareService(IMobilePhoneSoftwareRepository repository, ILogger<MobilePhoneSoftwareService> logger)
     {
         _repository = repository;
+        _logger = logger;
     }
 
     public async Task<List<MobilePhoneSoftwareEntity>> GetAllAsync(MobilePhoneSoftwareFiltersModel model, CancellationToken cancellationToken = default)

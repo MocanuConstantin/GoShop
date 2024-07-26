@@ -15,9 +15,10 @@ public class MobilePhoneHardwareService : IMobilePhoneHardwareService
 {
     private readonly IMobilePhoneHardwareRepository _repository;
     private readonly ILogger<MobilePhoneHardwareService> _logger;
-    public MobilePhoneHardwareService(IMobilePhoneHardwareRepository repository)
+    public MobilePhoneHardwareService(IMobilePhoneHardwareRepository repository, ILogger<MobilePhoneHardwareService> logger)
     {
         _repository = repository;
+        _logger = logger;
     }
 
     public async Task<List<MobilePhoneHardwareEntity>> GetAllAsync(MobilePhoneHardwareFiltersModel model, CancellationToken cancellationToken=default)

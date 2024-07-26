@@ -61,13 +61,28 @@ public class UserRepository : IUserRepository
         {
             "id-desc" => query.OrderByDescending(x => x.Id),
             "id-asc" => query.OrderBy(x => x.Id),
-            "mobilephone-id-desc" => query.OrderByDescending(x => x.MobilePhoneId),
-            "mobilephone-id-asc" => query.OrderBy(x => x.MobilePhoneId),
+            //"mobilephone-id-desc" => query.OrderByDescending(x => x.MobilePhoneId),
+            //"mobilephone-id-asc" => query.OrderBy(x => x.MobilePhoneId),
             "email-desc" => query.OrderByDescending(x => x.Email),
             "email-asc" => query.OrderBy(x => x.Email),
             "username-desc" => query.OrderByDescending(x => x.UserName),
             "username-asc" => query.OrderBy(x => x.UserName),
             _ => query.OrderByDescending(x => x.Id)
         };
+    }
+
+    public async Task<UserEntity> CreateAsync(UserEntity user, CancellationToken cancellationToken)
+    {
+        UserEntity newUser = new UserEntity();
+        newUser.UserName = user.UserName;
+        newUser.Email = user.Email;
+        newUser.Password = user.Password;
+        newUser.MobilePhones = user.MobilePhones;
+
+        await _context.UserEntities.AddAsync(newUser);
+
+        await _context.SaveChangesAsync();
+
+        return newUser;
     }
 }

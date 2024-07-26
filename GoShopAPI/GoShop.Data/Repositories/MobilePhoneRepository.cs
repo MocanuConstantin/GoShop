@@ -44,7 +44,7 @@ public class MobilePhoneRepository : IMobilePhoneRepository
         return await query.CountAsync(cancellationToken);
     }
 
-    public async Task<MobilePhoneEntity> CreateAsync(MobilePhoneEntity mobilePhoneEntity, CancellationToken cancellationToken)
+    public async Task<MobilePhoneEntity> CreateMobilePhoneAsync(MobilePhoneEntity mobilePhoneEntity, CancellationToken cancellationToken)
     {
         _context.MobilePhoneEntities.Add(mobilePhoneEntity); 
         await _context.SaveChangesAsync(cancellationToken);
@@ -94,12 +94,12 @@ public class MobilePhoneRepository : IMobilePhoneRepository
         {
             "id-desc" => query.OrderByDescending(x => x.Id),
             "id-asc" => query.OrderBy(x => x.Id),
-            "user-id-desc" => query.OrderByDescending(x => x.UserId),
-            "user-id-asc" => query.OrderBy(x => x.UserId),
-            "mobilephonehardware-id-desc" => query.OrderByDescending(x => x.MobilePhoneHardwareId),
-            "mobilephonehardware-id-asc" => query.OrderBy(x => x.MobilePhoneHardwareId),
-            "mobilephonesoftware-id-desc" => query.OrderByDescending(x => x.MobilePhoneSoftwareId),
-            "mobilephonesoftware-id-asc" => query.OrderBy(x => x.MobilePhoneSoftwareId),
+            //"user-id-desc" => query.OrderByDescending(x => x.UserId),
+            //"user-id-asc" => query.OrderBy(x => x.UserId),
+            //"mobilephonehardware-id-desc" => query.OrderByDescending(x => x.MobilePhoneHardwareId),
+            //"mobilephonehardware-id-asc" => query.OrderBy(x => x.MobilePhoneHardwareId),
+            //"mobilephonesoftware-id-desc" => query.OrderByDescending(x => x.MobilePhoneSoftwareId),
+            //"mobilephonesoftware-id-asc" => query.OrderBy(x => x.MobilePhoneSoftwareId),
             "brand-desc" => query.OrderByDescending(x => x.Brand),
             "brand-asc" => query.OrderBy(x => x.Brand),
             "model-desc" => query.OrderByDescending(x => x.Model),

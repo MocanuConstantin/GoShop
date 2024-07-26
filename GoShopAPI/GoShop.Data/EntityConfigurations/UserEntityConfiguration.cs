@@ -20,8 +20,8 @@ public class UserEntityConfiguration : IEntityTypeConfiguration<UserEntity>
         builder.Property(t => t.Password).IsRequired().HasMaxLength(255);
         builder.Property(t => t.UserName).IsRequired().HasMaxLength(255);
 
-        builder.HasMany(t=> t.MobilePhones)
-            .WithOne(x => x.User)
-            .HasForeignKey(x => x.UserId);
+        //builder.HasMany(t => t.MobilePhones)
+        //    .WithOne(x => x.User)
+        //    .HasForeignKey(x => x.UserId);
     }
 }

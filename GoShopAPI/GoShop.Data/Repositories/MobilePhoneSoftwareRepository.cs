@@ -77,8 +77,8 @@ public class MobilePhoneSoftwareRepository : IMobilePhoneSoftwareRepository
         {
             "id-desc" => query.OrderByDescending(x => x.Id),
             "id-asc" => query.OrderBy(x => x.Id),
-            "mobilephone-id-desc" => query.OrderByDescending(x => x.MobilePhoneID),
-            "mobilephone-id-asc" => query.OrderBy(x => x.MobilePhoneID),
+            //"mobilephone-id-desc" => query.OrderByDescending(x => x.MobilePhoneID),
+            //"mobilephone-id-asc" => query.OrderBy(x => x.MobilePhoneID),
             "operatingsystem-desc" => query.OrderByDescending(x => x.OperatingSystem),
             "operatingsystem-asc" => query.OrderBy(x => x.OperatingSystem),
             "osversion-desc" => query.OrderByDescending(x => x.OSVersion),
